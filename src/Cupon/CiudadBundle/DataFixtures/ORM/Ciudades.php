@@ -1,7 +1,7 @@
 <?php
 namespace Cupon\CiudadBundle\DataFixtures\ORM;
 
-use Doctrine\Common\DataFixtures\FixtureInterface;
+use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\Persistence\ObjectManager;
 use Cupon\CiudadBundle\Entity\Ciudad;
 
@@ -9,7 +9,7 @@ use Cupon\CiudadBundle\Entity\Ciudad;
  * Fixtures de la entidad Ciudad.
  * Crea 25 ciudades para poder probar la aplicación.
  */
-class Ciudades implements FixtureInterface
+class Ciudades extends AbstractFixture
 {
 
     public function load(ObjectManager $manager)
@@ -26,23 +26,7 @@ class Ciudades implements FixtureInterface
             'Málaga',
             'Murcia',
             'Palma de Mallorca',
-            'Las Palmas de Gran Canaria',
-            'Bilbao',
-            'Alicante',
-            'Córdoba',
-            'Valladolid',
-            'Vigo',
-            'Gijón',
-            'Hospitalet de Llobregat',
-            'La Coruña',
-            'Granada',
-            'Vitoria-Gasteiz',
-            'Elche',
-            'Oviedo',
-            'Santa Cruz de Tenerife',
-            'Badalona',
-            'Cartagena',
-            'Tarrasa',
+            'Las Palmas de Gran Canaria'
         );
 
         foreach ($ciudades as $nombre) {
