@@ -1,3 +1,5 @@
+parameters:
+    cupon.ciudad_por_defecto: 'barcelona'
 imports:
     - { resource: parameters.yml }
     - { resource: security.yml }
