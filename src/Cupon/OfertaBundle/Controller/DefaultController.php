@@ -3,7 +3,7 @@
 namespace Cupon\OfertaBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\Response;
+//use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 
 class DefaultController extends Controller
@@ -23,5 +23,14 @@ class DefaultController extends Controller
         }
 
         return $this->render('OfertaBundle:Default:portada.html.twig',array('oferta' => $oferta));
+    }
+    public function ofertaAction($ciudad, $slug){
+        
+        $em =  $this->getDoctrine()->getManager();
+        
+        $oferta = $em->getRepository('OfertaBundle:Oferta')->findOferta($ciudad,$slug);
+        $relacionadas=$em->getRepository('Ofertabundle:Oferta')->findRelacionadas($ciudad);
+        
+        return $this->render('OfertaBundle:Default:detalle.html.twig',array('oferta'=>$oferta,'relacionadas'=>$relacionadas));
     }
 }
