@@ -20,7 +20,9 @@
                 <h2> Ofertas en otras ciudades</h2>
                 <ul>
                     {% for oferta in relacionadas %}
-                        <li> {{ oferta.ciudad.nombre }}: <a href={{ path('oferta',´{}) }}> {{ oferta.nombre }} </a>
+                        <li>{{ oferta.ciudad.nombre }}: <a href="{{ path('oferta' , {'ciudad' : oferta.ciudad.slug, 'slug' : oferta.slug }) }}">{{ oferta.nombre }}</a></li>
+                    {% else %}
+                        <h2> No existen ofertas relacionadas </h2>
                     {% endfor %}
                 </ul>
 {% endblock %}

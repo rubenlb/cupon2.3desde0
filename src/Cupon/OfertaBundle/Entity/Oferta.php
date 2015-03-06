@@ -1,5 +1,4 @@
 <?php
-
 namespace Cupon\OfertaBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;

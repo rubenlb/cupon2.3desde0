@@ -1,5 +1,4 @@
 <?php
-
 namespace Cupon\OfertaBundle\Entity;
 
 use Doctrine\ORM\EntityRepository;
@@ -41,12 +40,23 @@ class OfertaRepository extends EntityRepository
     public function findRelacionadas($ciudad){
         $em=  $this->getEntityManager();
         $consulta= $em->createQuery(
-            'SELECT o,c FROM OfertaBundle:Oferta o JOIN oferta.ciudad c 
+            'SELECT o,c FROM OfertaBundle:Oferta o JOIN o.ciudad c 
              WHERE o.revisada=true AND o.fechaPublicacion<=:fecha AND c.slug!=:ciudad 
-             ORDERED BY o.fechaPublicacion DESC'  
+             ORDER BY o.fechaPublicacion DESC'  
         );
         $consulta->setMaxResults(5);
         $consulta->setParameter('ciudad', $ciudad);
+        $consulta->setParameter('fecha', new \DateTime('today'));
+        
+        return $consulta->getResult();
+    }
+    public function findRecientes($ciudad_id) {
+        $em=  $this->getEntityManager();
+        
+        $consulta= $em->createQuery('SELECT o,t FROM OfertaBundle:Oferta o JOIN o.tienda t WHERE o.revisada=true AND o.fechaPublicacion<=:fecha AND o.ciudad=:id ORDER BY o.fechaPublicacion ASC');
+        
+        $consulta->setMaxResults(5);
+        $consulta->setParameter('id', $ciudad_id);
         $consulta->setParameter('fecha', new \DateTime('today'));
         
         return $consulta->getResult();

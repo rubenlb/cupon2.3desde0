@@ -7,7 +7,7 @@ use Cupon\OfertaBundle\Util\Util;
 /**
  * Ciudad
  * 
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Cupon\CiudadBundle\Entity\CiudadRepository")
  **/
 class Ciudad 
 {
