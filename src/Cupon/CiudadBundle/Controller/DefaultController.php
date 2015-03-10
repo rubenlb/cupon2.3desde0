@@ -27,6 +27,10 @@ class DefaultController extends Controller
         $em =  $this->getDoctrine()->getManager();
         
         $ciudad = $em->getRepository('CiudadBundle:Ciudad')->findOneBySlug($ciudad);
+        if (! $ciudad) {
+            throw $this->createNotFoundException('No existe la ciudad' ) ;
+        }
+        
         $cercanas = $em->getRepository('CiudadBundle:Ciudad')->findCercanas($ciudad->getId());
         $ofertas = $em->getRepository('OfertaBundle:Oferta')->findRecientes($ciudad->getId());
         

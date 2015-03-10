@@ -28,11 +28,13 @@ class DefaultController extends Controller
         
         $em =  $this->getDoctrine()->getManager();
         
-        $oferta = $em->getRepository('OfertaBundle:Oferta')->findOneBySlug($slug);//findOferta($ciudad,$slug);
+        $oferta = $em->getRepository('OfertaBundle:Oferta')->findOferta($ciudad,$slug);
         
+        if (! $oferta) {
+            throw $this->createNotFoundException('No existe la oferta............!' ) ;
+        }
         $relacionadas=$em->getRepository('OfertaBundle:Oferta' )->findRelacionadas($ciudad) ;  
-                /*    $em->getRepository('Ofertabundle:Oferta' )->findRelacionadas($ciudad) ;
-        */
+        
         return $this->render('OfertaBundle:Default:detalle.html.twig',array('oferta'=>$oferta,'relacionadas'=>$relacionadas));
         
     }
