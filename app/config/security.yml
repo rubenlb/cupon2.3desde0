@@ -7,6 +7,12 @@ security:
             form_login:
                 login_path: usuario_login
                 check_path: usuario_login_check
+            logout:
+                path: usuario_logout
+                target: /
+            remember_me:
+                key:      cupon1234
+                lifetime: 3600
         
     access_control:
         - { path: ^/usuario/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }

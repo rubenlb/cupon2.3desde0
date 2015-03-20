@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>Ofertas recientes en {{ ciudad.nombre }}</title>
+        <link>{{ url('oferta_recientes' , { 'ciudad' : ciudad.slug }) }}</link>
+        <description>Las ofertas más recientes publicadas por Cupon en {{ ciudad.nombre }}</description>
+        <language>{{ app.request.locale }}</language>
+        <pubDate>{{ 'now' | date('r' ) }}</pubDate>
+        <lastBuildDate>{{ 'now' | date('r' ) }}</lastBuildDate>
+        <generator>Symfony2</generator>
+        <atom:link rel="self" type="application/rss+xml" href="{{ url('oferta_recientes' , {'ciudad' : ciudad.slug,'_format' : 'rss' }) }}" />
+
+        {% for oferta in ofertas %}
+            {% set urlAbsolutaFoto = 'http://'~ app.request.server.get('SERVER_NAME' )~ asset(directorio_imagenes ~ oferta.rutaFoto) %}
+            <item>
+                <title>{{ oferta.nombre }}</title>
+                <link>{{ url('oferta' , { 'ciudad' : oferta.ciudad.slug,'slug' : oferta.slug }) }}</link>
+                <description>
+                    <![CDATA[
+                        <img alt="" src="{{ urlAbsolutaFoto }}"/>
+                        {{ oferta.descripcion | mostrar_como_lista }}
+                        <a href="#">Comprar</a>
+                    ]]>
+                </description>
+                <pubDate>{{ oferta.fechaPublicacion | date('r' ) }}</pubDate>
+                <guid>{{ url('oferta' , { 'ciudad' : oferta.ciudad.slug,'slug' : oferta.slug }) }}</guid>
+            </item>
+        {% endfor %}
+    </channel>
+</rss>
